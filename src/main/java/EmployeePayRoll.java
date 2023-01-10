@@ -10,21 +10,9 @@ public class EmployeePayRoll {
                     "jdbc:mysql://127.0.0.1:3306/payroll_service",
                     "root", "Akshay@1997");
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("select * from employee_payroll");
-            int id;
-            String name;
-            double salary;
-            Date date;
-            while (resultSet.next()) {
-                id = resultSet.getInt("id");
-                name = resultSet.getString("name").trim();
-                salary = resultSet.getDouble("salary");
-                date = resultSet.getDate("start_date");
-                System.out.println("id : " + id
-                        + ", name : " + name + ", salary : " + salary
-                        + ", start_date : " + date);
-            }
-            resultSet.close();
+
+            int count = statement.executeUpdate("update employee_payroll set salary = \"300000000\" where id = 5");
+            System.out.println(count);
             statement = connection.createStatement();
             statement.close();
             connection.close();
