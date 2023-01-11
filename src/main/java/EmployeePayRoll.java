@@ -9,14 +9,30 @@ public class EmployeePayRoll {
             Connection connection = DriverManager.getConnection(
                     "jdbc:mysql://127.0.0.1:3306/payroll_service",
                     "root", "Akshay@1997");
-            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE employee_payroll SET salary=? WHERE id=?");
-            preparedStatement.setDouble(1,60000000.0);
-            preparedStatement.setInt(2, 3);
+            PreparedStatement preparedStatement = connection.prepareStatement("select * from employee_payroll where id > ? and salary < ?");
+            preparedStatement.setInt(1,2);
+            preparedStatement.setDouble(2,8000000.0);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            int id;
+            String name;
+            double salary;
+            Date date;
+            while (resultSet.next()) {
+                id = resultSet.getInt("id");
+                name = resultSet.getString("name").trim();
+                salary = resultSet.getDouble("salary");
+                date = resultSet.getDate("start_date");
+                System.out.println("id : " + id
+                        + ", name : " + name + ", salary : " + salary
+                        + ", start_date : " + date);
+            }
+            resultSet.close();
         }
         catch (Exception exception) {
             System.out.println(exception);
         }
     }
-//    7249624563
+//    72496245
 }
 
